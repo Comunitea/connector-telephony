@@ -93,12 +93,11 @@ class CrmPhonecall(models.Model):
     @api.onchange("partner_phone")
     def onchange_partner_phone(self):
         if self.partner_phone:
-            self.partner_phone = phone_validation.phone_format(self.partner_phone)
-
+            self.partner_phone = phone_validation.phone_format(self.partner_phone, self.partner_id.country_id.code, self.partner_id.country_id.phone_code)
     @api.onchange("partner_mobile")
     def onchange_partner_mobile(self):
         if self.partner_mobile:
-            self.partner_mobile = phone_validation.phone_format(self.partner_mobile)
+            self.partner_mobile = phone_validation.phone_format(self.partner_mobile, self.partner_id.country_id.code, self.partner_id.country_id.phone_code)
 
     def schedule_another_call(self):
         self.ensure_one()
